@@ -2,9 +2,12 @@ const express=require('express')
 const bodyParser=require('body-parser')
 const {connectToDb,getDb}=require('./db.cjs')
 const { MongoClient,ObjectId } = require('mongodb')
+const cors=require('cors')
+
 
 
 const app=express()
+app.use(cors())
 app.use(bodyParser.json())
 app.use(express.static(__dirname))
 let db
