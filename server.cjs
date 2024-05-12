@@ -12,7 +12,7 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname))
 let db
 
-// retriv callback from db.cjs
+
 connectToDb(function(error){
     if(!error){
         app.listen(8001)
@@ -57,11 +57,10 @@ app.get('/get-price',function(req,res){
 })
 
 app.delete('/delete-price', function(req, res) {
-    const id = req.body._id; // Get the _id from the request body
+    const id = req.body._id; 
     if (typeof id === 'string' && /^[0-9a-fA-F]{24}$/.test(id)) {
-        // Check if id is a string and matches the ObjectId format
-        // @ts-ignore
-        const objectId = new ObjectId(id); // Create ObjectId from the string _id
+        
+        const objectId = new ObjectId(id); 
         db.collection('Live_update').deleteOne({
             _id: objectId
         }).then(function(result) {
@@ -85,12 +84,12 @@ app.delete('/delete-price', function(req, res) {
         });
     }
 });
-// update
 
-app.patch('/update-price', function(req, res) {
-    const id = Number(req.body.id); // Convert req.body.id to a number
-    if (!isNaN(id)) { // Check if the converted id is a valid number
-        const objectId = ObjectId.createFromTime(id); // Create ObjectId from a numeric value
+
+app.put('/update-price', function(req, res) {
+    const id = Number(req.body.id); 
+    if (!isNaN(id)) { 
+        const objectId = ObjectId.createFromTime(id); 
         db.collection('Live_update').updateOne({
             _id: objectId
         }, {
@@ -141,10 +140,10 @@ app.get('/get-available',function(req,res){
     })
 })
 
-app.patch('/update-available', function(req, res) {
-    const id = Number(req.body.id); // Convert req.body.id to a number
-    if (!isNaN(id)) { // Check if the converted id is a valid number
-        const objectId = ObjectId.createFromTime(id); // Create ObjectId from a numeric value
+app.put('/update-available', function(req, res) {
+    const id = Number(req.body.id); 
+    if (!isNaN(id)) { 
+        const objectId = ObjectId.createFromTime(id); 
         db.collection('Live_update').updateOne({
             _id: objectId
         }, {
@@ -165,11 +164,10 @@ app.patch('/update-available', function(req, res) {
     }
 });
 app.delete('/delete-available', function(req, res) {
-    const id = req.body._id; // Get the _id from the request body
+    const id = req.body._id; 
     if (typeof id === 'string' && /^[0-9a-fA-F]{24}$/.test(id)) {
-        // Check if id is a string and matches the ObjectId format
-        // @ts-ignore
-        const objectId = new ObjectId(id); // Create ObjectId from the string _id
+       
+        const objectId = new ObjectId(id); 
         db.collection('Live_update').deleteOne({
             _id: objectId
         }).then(function(result) {
