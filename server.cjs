@@ -207,3 +207,36 @@ app.delete('/delete-available', function(req, res) {
         "prawn-price":400
     }
 }        */
+
+// form data 
+
+app.post('/add/form',function(req,res){
+    // console.log(req.body)
+    db.collection('Form')
+    .insertOne(req.body).then(function(){
+        res.status(201).json({
+            "datasent":'suceesfully'
+        })
+    }).catch(function(error){
+        console.log(error)
+    })
+    // res.status(200).json({
+    //     "sent":'sucessfully'
+    // })
+})
+
+
+app.get('/get/form',function(req,res){
+
+    const empty=[]
+    db.collection('Form').find()
+    .forEach(entr=>empty.push(entr))
+    .then(function()
+    {
+        res.status(200).json(empty)
+    }).catch(function(error){
+        res.status(404).json({
+            'error':error
+        })
+    })
+})
